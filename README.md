@@ -7,4 +7,4 @@ This is my most recent project which is still a not completly finished.
 
 ## Game Preview
 
-[![Watch the video!]()](https://drive.google.com/file/d/1ihB1p9lvsQNAuPvISCeCg8Xy3kdJb0e9/view?usp=sharing)
+[![Watch the video!](https://github.com/SomeCoder23/WaveRider/blob/main/Assets/Art/Screenshot%202024-07-03%20172447.png)](https://drive.google.com/file/d/1ihB1p9lvsQNAuPvISCeCg8Xy3kdJb0e9/view?usp=sharing)
