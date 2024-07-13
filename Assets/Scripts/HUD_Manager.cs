@@ -22,6 +22,7 @@ public class HUD_Manager : MonoBehaviour
     int gems = 0;
     int highScore = 0;
     public Text coinsTxt, timerTxt, gemsTxt, highScoreTxt, pointsTxt;
+    bool playing = false;
 
     private void Start()
     {
@@ -48,6 +49,7 @@ public class HUD_Manager : MonoBehaviour
     public void StartTimer()
     {
         MapManager.instance.InitializeMap();
+        playing = true;
         StartCoroutine(Timer());
     }
 
@@ -73,7 +75,7 @@ public class HUD_Manager : MonoBehaviour
 
     IEnumerator Timer()
     {
-        while (true)
+        while (playing)
         {
             yield return new WaitForSeconds(1);
             time++;
@@ -122,6 +124,7 @@ public class HUD_Manager : MonoBehaviour
 
     public void LoseGame()
     {
+        playing = false;
         pointsTxt.text = (time + coins + gems).ToString();
         Boat.instance.StopBoat();
         UIManager ui = GetComponent<UIManager>();

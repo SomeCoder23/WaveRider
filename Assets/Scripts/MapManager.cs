@@ -5,8 +5,8 @@ using UnityEngine;
 public class MapManager : MonoBehaviour
 {
     //TODO:
-    //organize spawning coins and gems
-    //maybe add hearts?
+    //maybe add hearts or shields?
+    //organize rock spawning
 
     #region Singleton
     public static MapManager instance;
@@ -26,6 +26,7 @@ public class MapManager : MonoBehaviour
     public float moveOffset = -550;
     public GameObject[] obstacles;
     public GameObject coin, gem;
+    public float coinSpawnOffset;
     public Vector2 gemSpawnInterval = new Vector2(5, 15);
     [Range(1, 100)]
     public float obstaclesStartPercentage;
@@ -153,6 +154,25 @@ public class MapManager : MonoBehaviour
 
         int rockCount = (int)(itemCount * (obstaclesStartPercentage / 100f));
         int collectableCount = (int)itemCount - rockCount;
+
+        Debug.Log("ROCK COUNT: " + rockCount + " COINS COUNT : " + collectableCount);
+        for (int i = 0; i < collectableCount; i++)
+        {
+            int coinCount = Random.Range(0, collectableCount - i);
+            Vector3 pos = Spawn(coin, spawnPoints[start], spawnedItemsHeight * 2.5f);
+            Debug.Log("ABOUT TO SPAWN " + (coinCount + 1) + " COINS");
+            i += coinCount;
+            while (coinCount != 0)
+            {
+                pos.z += coinSpawnOffset * coinCount;
+                coinCount--;
+                Instantiate(coin, pos, coin.transform.rotation);
+
+            }
+
+        }
+
+
         for (int i = 0; i < rockCount; i++)
         {           
             index = Random.Range(0, obstacles.Length);
@@ -167,19 +187,18 @@ public class MapManager : MonoBehaviour
             StartCoroutine(GemSpawnTimer());
         }
 
-        for (int i = 0; i < collectableCount; i++)
-            Spawn(coin, spawnPoints[start], spawnedItemsHeight * 2.5f);
         
     }
 
 
-    void Spawn(GameObject item, SeaGenerator spawnArea, float height)
+    Vector3 Spawn(GameObject item, SeaGenerator spawnArea, float height)
     {
         Vector3 pos;
         pos.z = GetRandom(zOffset);
         pos = spawnArea.GetRandomPos(pos.z);
         pos.y = height;
         Instantiate(item, pos, item.transform.rotation);
+        return pos;
     }
 
     public void ResetMap()
@@ -190,5 +209,9 @@ public class MapManager : MonoBehaviour
         Obstacle[] obs = FindObjectsOfType<Obstacle>();
         foreach (Obstacle o in obs)
             Destroy(o.gameObject);
+
+        Ramp[] ramps = FindObjectsOfType<Ramp>();
+        foreach (Ramp r in ramps)
+            Destroy(r.gameObject);
     }
 }

@@ -52,7 +52,7 @@ public class SeaGenerator : MonoBehaviour
 
     bool isValid(Vector3 position)
     {
-        if (Physics.Raycast(position + Vector3.up * 20f, Vector3.down, out RaycastHit hit, 20f * 2, obstaclesLayer))
+        if (Physics.Raycast(position + Vector3.up * 40f, Vector3.down, out RaycastHit hit, 40f * 2, obstaclesLayer))
             return false;
 
         return true;

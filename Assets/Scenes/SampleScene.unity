@@ -4498,7 +4498,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   m_LocalRotation: {x: -0, y: 0.9961801, z: -0.087322846, w: 0}
-  m_LocalPosition: {x: 241.4, y: 31, z: 608.3}
+  m_LocalPosition: {x: 241.4, y: 32.899998, z: 621}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4552,7 +4552,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 5425937596920583370}
-  offset: {x: 1.5, y: 23, z: 76}
 --- !u!1 &331175813
 GameObject:
   m_ObjectHideFlags: 0
@@ -10140,11 +10139,12 @@ MonoBehaviour:
   - {fileID: 854142488732918417, guid: 1e9379ff14769bb4c851d9d16143007f, type: 3}
   coin: {fileID: 6742146836416640432, guid: 61f0feb1854716d4db903b3a224a0525, type: 3}
   gem: {fileID: 8232587896246702512, guid: bad20fa4b067b9c43bc0e1144f25b25e, type: 3}
+  coinSpawnOffset: 50
   gemSpawnInterval: {x: 7, y: 15}
-  obstaclesStartPercentage: 50
+  obstaclesStartPercentage: 40
   collectableStartPercentage: 25
   itemSpawnCount: {x: 5, y: 10}
-  spawnedItemsHeight: 7
+  spawnedItemsHeight: 6
   zOffset: {x: 0, y: 450}
 --- !u!4 &826918062
 Transform:
@@ -30130,7 +30130,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5425937596920675196}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 241.19534, y: 5, z: 540.2269}
+  m_LocalPosition: {x: 241.19534, y: 6.9, z: 555}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children:

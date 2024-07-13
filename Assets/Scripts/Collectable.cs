@@ -32,6 +32,9 @@ public class Collectable : MonoBehaviour
     {
         if (other.tag == "Boat")
             Collect();
+
+        if (other.tag == "Obstacle" && other.GetComponent<Obstacle>() != null)
+            Destroy(this.gameObject);
     }
 
     private void FixedUpdate()
