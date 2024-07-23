@@ -26,6 +26,7 @@ public class Boat : MonoBehaviour
     public float maxTiltAngle = 16f;
     public float speedUpTimer = 30;
     public float speedModifier = 2.4f;
+    public Shield shield;
 
     Rigidbody rb;
     Vector3 movement;
@@ -35,7 +36,8 @@ public class Boat : MonoBehaviour
     bool speedingUp = false;
     bool start = false;
     float timer = 0;
-    float initialSpeed;
+    float initialSpeed, initialTurnSpeed;
+    bool safe = false;
 
 
     private void Start()
@@ -43,12 +45,15 @@ public class Boat : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         startPos = transform.position;
         initialSpeed = speed;
+        initialTurnSpeed = turnSpeed;
     }
 
     public void StartBoat(bool start = true)
     {
         transform.position = startPos;
         speed = initialSpeed;
+        turnSpeed = initialTurnSpeed;
+        moveInput = new Vector2(0,0);
         this.start = start;
     }
     
@@ -58,7 +63,6 @@ public class Boat : MonoBehaviour
         if (!start) return;
 
         moveInput = context.ReadValue<Vector2>();
-       // Debug.Log("Move input: " + moveInput);
     }
 
     private void FixedUpdate()
@@ -109,4 +113,24 @@ public class Boat : MonoBehaviour
 
     }
 
+    public void EnableShield(float time)
+    {
+        if (shield != null && !safe)
+        {
+            shield.Activate(time);
+            HUD_Manager.instance.ActivateShieldTime(time);
+            safe = true;
+        }
+    }
+
+    public void DisableShield()
+    {
+        safe = false;
+        HUD_Manager.instance.DeactivateShieldTimer();
+    }
+
+    public bool isProtected()
+    {
+        return safe;
+    }
 }

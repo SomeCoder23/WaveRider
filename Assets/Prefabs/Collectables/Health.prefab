@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 220600620459513596}
   - component: {fileID: 245529239771123236}
   - component: {fileID: 237165242906469656}
-  - component: {fileID: 1147521160853070332}
   - component: {fileID: 209421700462654916}
   - component: {fileID: 1351941596501448892}
   m_Layer: 6
@@ -87,19 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1147521160853070332
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 222963396718441016}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b864ed8fec29c6c42a5c2c43699aa386, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
 --- !u!135 &209421700462654916
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -125,7 +111,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed7c64b254ee83b4ea74be9ab78c5912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 30
+  spawnHeight: 20
+  rotateSpeed: 100
   type: 2
   collectSound: {fileID: 0}
   value: 10

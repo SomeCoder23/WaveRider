@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6755717734340787052}
   - component: {fileID: 4788971555909266113}
   - component: {fileID: 8354854080113191535}
-  - component: {fileID: -3922212108988384370}
   m_Layer: 6
   m_Name: Coin
   m_TagString: Item
@@ -112,23 +111,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed7c64b254ee83b4ea74be9ab78c5912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnHeight: 17
   rotateSpeed: 130
   type: 0
   collectSound: {fileID: 8300000, guid: 23a01624c8a6956499e0a46341408ea9, type: 3}
   value: 10
---- !u!114 &-3922212108988384370
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6742146836416640432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b864ed8fec29c6c42a5c2c43699aa386, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
 --- !u!1 &8576488206448070486
 GameObject:
   m_ObjectHideFlags: 0

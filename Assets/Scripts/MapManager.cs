@@ -24,22 +24,25 @@ public class MapManager : MonoBehaviour
 
     #endregion
     public float moveOffset = -550;
-    public GameObject[] obstacles;
-    public GameObject coin, gem;
+    public Obstacle[] bigObstacles;
+    public Obstacle[] smallObstacles;
+    public Obstacle[] powerUps;
+    public Obstacle coin, gem;
+    [Tooltip("The offset between each coin and the next when spawning in a straight line")]
     public float coinSpawnOffset;
     public Vector2 gemSpawnInterval = new Vector2(5, 15);
+    public Vector2 powerUpsSpawnInterval = new Vector2(5, 10);
+    public int maxPowerUpsSpawnCount = 4;
     [Range(1, 100)]
-    public float obstaclesStartPercentage;
+    public float obstaclesSpawnPercentage;
     //public float obstaclesIncreaseRate = 0.2f;
 
     [Range(1, 100)]
-    public float collectableStartPercentage;
+    public float collectableSpawnPercentage;
     //public float collectablesIncreaseRate = 0.1f;
 
     [Tooltip("Min and max items to be spawned in each section")]
     public Vector2 itemSpawnCount;
-
-    public float spawnedItemsHeight = 7f;
     public Vector2 zOffset;
 
     List<Transform> seaSections = new List<Transform>();
@@ -47,7 +50,7 @@ public class MapManager : MonoBehaviour
 
     float spawnTime;
     Vector3[] startPositions;
-    bool spawnGem = false;
+    bool spawnGem = false, spawnPowerUp = false;
 
     private void Start()
     {
@@ -71,10 +74,15 @@ public class MapManager : MonoBehaviour
 
     public void InitializeMap()
     {
-        for (int i = 0; i < spawnPoints.Count; i++)
+        zOffset.y -= 200;
+        SpawnItems(0);
+        zOffset.y += 200;
+
+        for (int i = 1; i < spawnPoints.Count; i++)
             SpawnItems(i);
 
         StartCoroutine(GemSpawnTimer());
+        StartCoroutine(PowerUpSpawnTimer());
     }
 
     float GetRandom(Vector2 range)
@@ -145,6 +153,19 @@ public class MapManager : MonoBehaviour
         spawnGem = true;
     }
 
+    IEnumerator PowerUpSpawnTimer()
+    {
+        float elapsedTime = 0;
+        float timer = GetRandom(powerUpsSpawnInterval);
+        while (elapsedTime < timer)
+        {
+            elapsedTime++;
+            yield return new WaitForSeconds(1);
+        }
+
+        spawnPowerUp = true;
+    }
+
 
     void SpawnItems(int start)
     {
@@ -152,15 +173,27 @@ public class MapManager : MonoBehaviour
         float itemCount = (int)GetRandom(itemSpawnCount);
         int index;
 
-        int rockCount = (int)(itemCount * (obstaclesStartPercentage / 100f));
+        int rockCount = (int)(itemCount * (obstaclesSpawnPercentage / 100f));
         int collectableCount = (int)itemCount - rockCount;
 
-        Debug.Log("ROCK COUNT: " + rockCount + " COINS COUNT : " + collectableCount);
+        //First spawn rocks
+        for (int i = 0; i < (rockCount / 3) * 2; i++)
+        {           
+            index = Random.Range(0, smallObstacles.Length);
+            Spawn(smallObstacles[index].gameObject, spawnPoints[start], smallObstacles[index].spawnHeight, smallObstacles[index].size);
+        }
+
+        for (int i = 0; i < rockCount / 3 ; i++)
+        {
+            index = Random.Range(0, bigObstacles.Length);
+            Spawn(bigObstacles[index].gameObject, spawnPoints[start], bigObstacles[index].spawnHeight, bigObstacles[index].size);
+        }
+
+        //Second spawn coins
         for (int i = 0; i < collectableCount; i++)
         {
             int coinCount = Random.Range(0, collectableCount - i);
-            Vector3 pos = Spawn(coin, spawnPoints[start], spawnedItemsHeight * 2.5f);
-            Debug.Log("ABOUT TO SPAWN " + (coinCount + 1) + " COINS");
+            Vector3 pos = Spawn(coin.gameObject, spawnPoints[start], coin.spawnHeight, coin.size);
             i += coinCount;
             while (coinCount != 0)
             {
@@ -172,30 +205,40 @@ public class MapManager : MonoBehaviour
 
         }
 
-
-        for (int i = 0; i < rockCount; i++)
-        {           
-            index = Random.Range(0, obstacles.Length);
-            Spawn(obstacles[index], spawnPoints[start], spawnedItemsHeight);
-        }
-
+        //Spawn gem if its time to spawn 
         if (spawnGem)
         {
             collectableCount--;
             spawnGem = false;
-            Spawn(gem, spawnPoints[start], spawnedItemsHeight * 2.5f);
+            Spawn(gem.gameObject, spawnPoints[start], gem.spawnHeight, gem.size);
             StartCoroutine(GemSpawnTimer());
         }
 
-        
+        //Spawn Power Up if its time to spawn
+        if (spawnPowerUp)
+        {
+            spawnPowerUp = false;
+            index = Random.Range(0, powerUps.Length);
+            Spawn(powerUps[index].gameObject, spawnPoints[start], powerUps[index].spawnHeight, powerUps[index].size);
+            StartCoroutine(PowerUpSpawnTimer());
+
+            //int count = Random.Range(0, maxPowerUpsSpawnCount);
+            //while (count > 0)
+            //{
+            //    count--;
+            //    index = Random.Range(0, powerUps.Length);
+            //    Spawn(powerUps[index].gameObject, spawnPoints[start], powerUps[index].spawnHeight);
+            //}
+        }
+
     }
 
 
-    Vector3 Spawn(GameObject item, SeaGenerator spawnArea, float height)
+    Vector3 Spawn(GameObject item, SeaGenerator spawnArea, float height, ObstacleSize size)
     {
         Vector3 pos;
         pos.z = GetRandom(zOffset);
-        pos = spawnArea.GetRandomPos(pos.z);
+        pos = spawnArea.GetRandomPos(pos.z, size);
         pos.y = height;
         Instantiate(item, pos, item.transform.rotation);
         return pos;

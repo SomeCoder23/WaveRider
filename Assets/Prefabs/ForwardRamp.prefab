@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 4913316791258995819}
   - component: {fileID: 4944354224185706267}
   - component: {fileID: 4934780275120270090}
+  - component: {fileID: 5730960328502032130}
   m_Layer: 6
   m_Name: ForwardRamp
-  m_TagString: Obstacle
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,5 +112,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6958a30463f8cdd4abdf32ab3b3ca50a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnHeight: 7
+  size: 1
   direction: -1
   speed: 55
+  speedUpSound: {fileID: 8300000, guid: 85db40be1628fda4db8f0c1e1123c23c, type: 3}
+--- !u!54 &5730960328502032130
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4935617962592073125}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 94
+  m_CollisionDetection: 0

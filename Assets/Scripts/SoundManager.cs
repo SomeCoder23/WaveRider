@@ -22,7 +22,7 @@ public class SoundManager : MonoBehaviour
 
     public AudioSource musicAudio, soundAudio;
     public AudioClip buttonClick;
-    public AudioClip gameMusic, mainMenuMusic;
+    public AudioClip gameMusic, mainMenuMusic, loseClip;
     [SerializeField]
     private Sprite soundOn, soundOff;
     [SerializeField]
@@ -141,5 +141,17 @@ public class SoundManager : MonoBehaviour
     {
         paused = false;
         PlayMusic();
+    }
+
+    public void Lose()
+    {
+        StopMusic();
+        PlaySound(loseClip);
+    }
+
+    public void PlayRandom(AudioClip[] clips)
+    {
+        int index = Random.Range(0, clips.Length);
+        PlaySound(clips[index]);
     }
 }

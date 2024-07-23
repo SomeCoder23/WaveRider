@@ -9,7 +9,6 @@ public class Destroyer : MonoBehaviour
     {
         if (other.tag == "Item" || other.tag == "Obstacle")
         {
-            //Debug.Log("Destroying: " + other.name);
             Destroy(other.gameObject);
         }
     }

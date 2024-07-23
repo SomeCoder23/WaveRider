@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 1295882951462931722}
   - component: {fileID: 1295882951463544854}
   - component: {fileID: 1230571003645127320}
-  - component: {fileID: 650014911876656615}
+  - component: {fileID: 8281042556779303291}
+  - component: {fileID: -1716540362032811730}
   m_Layer: 6
   m_Name: Crate
   m_TagString: Obstacle
@@ -98,7 +99,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.7665404, y: 0.76653725, z: 0.766537}
   m_Center: {x: 0.000000059604645, y: 0.38326862, z: 0}
---- !u!114 &650014911876656615
+--- !u!114 &8281042556779303291
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,7 +108,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 1295882951461844044}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b864ed8fec29c6c42a5c2c43699aa386, type: 3}
+  m_Script: {fileID: 11500000, guid: 91c3cf87429d3d3438ed935887ab04a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  spawnHeight: 1.5
+  hitSound:
+  - {fileID: 8300000, guid: 57fbf65b02444274a89fe920fd7e63f4, type: 3}
+  - {fileID: 8300000, guid: b0c4aaf980afe5542aebcc0e17e6ec13, type: 3}
+--- !u!54 &-1716540362032811730
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295882951461844044}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 14
+  m_CollisionDetection: 0

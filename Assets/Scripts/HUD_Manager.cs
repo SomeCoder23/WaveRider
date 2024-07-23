@@ -22,10 +22,13 @@ public class HUD_Manager : MonoBehaviour
     int gems = 0;
     int highScore = 0;
     public Text coinsTxt, timerTxt, gemsTxt, highScoreTxt, pointsTxt;
+    public GameObject msgTxt;
+    public Slider shieldTimer;
     bool playing = false;
 
     private void Start()
     {
+        shieldTimer.gameObject.SetActive(false);
         timerTxt.text = "00 : 00";
         InitializeHighScore();
     }
@@ -95,16 +98,15 @@ public class HUD_Manager : MonoBehaviour
 
     public void Restart()
     {
-        int score = (gems * 5) + coins + time;
-        if (score > highScore)
-            SaveHighScore(score);
-
+        SoundManager.instance.PlayMusic();
         coins = 0;
         gems = 0;
         time = 0;
         coinsTxt.text = "0";
         gemsTxt.text = "0";
         timerTxt.text = "00 : 00";
+        msgTxt.SetActive(false);
+
     }
 
     public void Replay()
@@ -121,13 +123,50 @@ public class HUD_Manager : MonoBehaviour
         SaveHighScore(0);
     }
 
+    public void ActivateShieldTime(float time)
+    {
+        shieldTimer.gameObject.SetActive(true);
+        shieldTimer.maxValue = time;
+        shieldTimer.value = time;
+    }
+
+    public void DeactivateShieldTimer()
+    {
+        shieldTimer.gameObject.SetActive(false);
+    }
+
+    //IEnumerator ShieldCountdown()
+    //{
+    //    while (shieldTimer.value > 0)
+    //    {
+    //        yield return new WaitForSeconds(0.1f);
+    //        shieldTimer.value -= 0.1f;               
+    //    }
+    //    shieldTimer.gameObject.SetActive(false);
+    //}
+
+    public void UpdateShieldCountdown(float value)
+    {
+        shieldTimer.value -= value;
+
+        //if (shieldTimer.value <= 0)
+        //    shieldTimer.gameObject.SetActive(false);
+    }
 
     public void LoseGame()
     {
+        int score = (gems * 5) + coins + time;
+        if (score > highScore)
+        {
+            SaveHighScore(score);
+            msgTxt.SetActive(true);
+        }
+
         playing = false;
-        pointsTxt.text = (time + coins + gems).ToString();
+        pointsTxt.text = score.ToString();
         Boat.instance.StopBoat();
         UIManager ui = GetComponent<UIManager>();
+        SoundManager.instance.Lose();
         if (ui != null)
             ui.DisplayLoseWindow();
     }

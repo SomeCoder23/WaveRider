@@ -31,11 +31,11 @@ public class SeaGenerator : MonoBehaviour
 
     void GenerateNextSection()
     {
-            map.MoveSection();
+         map.MoveSection();
     }
 
 
-    public Vector3 GetRandomPos(float z)
+    public Vector3 GetRandomPos(float z, ObstacleSize size)
     {
         Vector3 pos = new Vector3(0, 0, transform.position.z + z);
         if (spawnArea == null)
@@ -44,15 +44,22 @@ public class SeaGenerator : MonoBehaviour
         int tries = 100;
         do
         {
-            pos.x = Random.Range(spawnArea.bounds.min.x, spawnArea.bounds.max.x);
+            pos.x = Random.Range(spawnArea.bounds.min.x + 25, spawnArea.bounds.max.x - 25);
             tries--;
-        } while (!isValid(pos) || tries > 0);
+        } while (!isValid(pos, size) || tries > 0);
         return pos;
     }
 
-    bool isValid(Vector3 position)
+    bool isValid(Vector3 position, ObstacleSize size)
     {
-        if (Physics.Raycast(position + Vector3.up * 40f, Vector3.down, out RaycastHit hit, 40f * 2, obstaclesLayer))
+        Vector3 halfExtents = new Vector3(2.5f, 2.5f, 2.5f);
+        switch (size)
+        {
+            case ObstacleSize.big: halfExtents = new Vector3(20, 10f, 20f); break;
+            case ObstacleSize.medium: halfExtents = new Vector3(10, 5, 10); break;
+        }
+
+        if (Physics.BoxCast(position, halfExtents, Vector3.forward, Quaternion.identity, 2, obstaclesLayer)) 
             return false;
 
         return true;

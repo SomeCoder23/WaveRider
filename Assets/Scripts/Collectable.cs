@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Collectable : MonoBehaviour
+public class Collectable : Obstacle
 {
     public float rotateSpeed = 5f;
     [SerializeField]
@@ -23,6 +23,7 @@ public class Collectable : MonoBehaviour
         {
             case Item.Coin: HUD_Manager.instance.AddCoins(); break;
             case Item.Gem: HUD_Manager.instance.AddGem(); break;
+            case Item.Shield: Boat.instance.EnableShield(value); break;
             default: Debug.Log("COLLECTED: " + type); break;
         }
         Destroy(this.gameObject);
@@ -34,7 +35,10 @@ public class Collectable : MonoBehaviour
             Collect();
 
         if (other.tag == "Obstacle" && other.GetComponent<Obstacle>() != null)
+        {
+            Debug.Log("Coin collided with " + other.name + " DESTROYING COIN");
             Destroy(this.gameObject);
+        }
     }
 
     private void FixedUpdate()

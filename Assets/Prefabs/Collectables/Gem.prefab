@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8219148762867907612}
   - component: {fileID: 9085783249233744732}
   - component: {fileID: 5366425598845010276}
-  - component: {fileID: -403289023136080550}
   m_Layer: 6
   m_Name: Gem
   m_TagString: Item
@@ -111,20 +110,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed7c64b254ee83b4ea74be9ab78c5912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 5
+  spawnHeight: 16
+  rotateSpeed: 100
   type: 4
   collectSound: {fileID: 8300000, guid: 91c868d952596414bbdc28316d2fa709, type: 3}
   value: 50
---- !u!114 &-403289023136080550
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8232587896246702512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b864ed8fec29c6c42a5c2c43699aa386, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
